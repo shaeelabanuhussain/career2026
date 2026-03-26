@@ -1,6 +1,6 @@
 # Hearts Academy
 
-A web application built with [Next.js](https://nextjs.org) 16, [React](https://react.dev) 19, and [Tailwind CSS](https://tailwindcss.com) 4. Deployed on [Netlify](https://www.netlify.com).
+Hearts Academy's Industry Readiness Program website, built with [Next.js](https://nextjs.org) 16, [React](https://react.dev) 19, and [Tailwind CSS](https://tailwindcss.com) 4. Deployed on [Netlify](https://www.netlify.com).
 
 ## Getting Started
 
