@@ -30,5 +30,11 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "bistec-internship",
+    "ui-ux-pro-max-skill",
+    "everything-claude-code",
+    "irp2026"
+  ]
 }
