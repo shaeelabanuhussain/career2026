@@ -1,5 +1,6 @@
-# Matches README: static export from Next.js root app (not bistec-internship/).
+# Same IRP Next.js app as irp2026.netlify.app — build only from /irp2026.
 [build]
+  base = "irp2026"
   command = "npm run build"
   publish = "out"
 
