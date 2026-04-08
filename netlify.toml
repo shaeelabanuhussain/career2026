@@ -1,7 +1,7 @@
-# Matches README: static export from Next.js irp2026 app.
+# Matches README: static export from Next.js root app (not bistec-internship/).
 [build]
-  command = "cd irp2026 && npm run build"
-  publish = "irp2026/out"
+  command = "npm run build"
+  publish = "out"
 
 [build.environment]
   NODE_VERSION = "20"
