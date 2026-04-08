@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Curriculum — Hearts Academy</title>
+<style>
+  :root {
+    --navy: #0a0e14;
+    --blue: #2563eb;
+    --green: #16a34a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --off: #f8fafc;
+    --bg: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--navy);
+    line-height: 1.7;
+    background: var(--bg);
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 48px); }
+  section { padding: 56px 0; }
+  section + section { border-top: 1px solid var(--border); }
+  h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    margin-bottom: 6px;
+    color: var(--navy);
+  }
+  .section-sub {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-bottom: 32px;
+    max-width: 600px;
+  }
+
+  /* Meta strip */
+  .meta-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 48px;
+  }
+  .meta-cell {
+    background: white;
+    padding: 20px;
+    text-align: center;
+  }
+  .meta-cell .val {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .meta-cell .lbl {
+    font-size: 0.7rem;
+    font-family: monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* Phase timeline */
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--border);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 32px;
+  }
+  .tl-item:last-child { margin-bottom: 0; }
+  .tl-dot {
+    position: absolute;
+    left: -32px;
+    top: 6px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--blue);
+  }
+  .tl-item.green .tl-dot { border-color: var(--green); }
+  .tl-period {
+    font-family: monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    margin-bottom: 4px;
+  }
+  .tl-item.green .tl-period { color: var(--green); }
+  .tl-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .tl-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.65;
+    max-width: 560px;
+  }
+  .tl-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .tl-tag {
+    font-size: 0.72rem;
+    font-family: monospace;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: var(--off);
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  /* Skills grid */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .skill-card {
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--off);
+  }
+  .skill-card h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .skill-card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* Mentor tiers */
+  .mentor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+  .mentor-card {
+    padding: 24px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+  .mentor-card .icon {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+  .mentor-card h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .mentor-card p {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* Track cards */
+  .track-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .track {
+    padding: 28px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .track.ent { background: rgba(37,99,235,0.04); border-color: rgba(37,99,235,0.18); }
+  .track.start { background: rgba(22,163,74,0.04); border-color: rgba(22,163,74,0.18); }
+  .track h4 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+  .track .sub { font-size: 0.78rem; color: var(--muted); margin-bottom: 14px; }
+  .track ul { list-style: none; padding: 0; }
+  .track li {
+    font-size: 0.85rem;
+    padding: 3px 0 3px 18px;
+    position: relative;
+    color: var(--navy);
+  }
+  .track.ent li::before { content: "▸"; position: absolute; left: 0; color: var(--blue); }
+  .track.start li::before { content: "▸"; position: absolute; left: 0; color: var(--green); }
+
+  /* CTA */
+  .cta-box {
+    text-align: center;
+    padding: 48px 32px;
+    background: var(--navy);
+    border-radius: 14px;
+    color: white;
+  }
+  .cta-box h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+  .cta-box p { color: rgba(255,255,255,0.55); font-size: 0.9rem; margin-bottom: 24px; }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green);
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: brightness 0.15s;
+  }
+  .cta-btn:hover { filter: brightness(1.1); }
+
+  @media (max-width: 640px) {
+    .mentor-grid, .track-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PROGRAMME SNAPSHOT -->
+<section>
+  <div class="container">
+    <h2>6-Month Curriculum</h2>
+    <p class="section-sub">Full-time industrial training. Spec-driven development with AI. Real projects, real teams, real deployment.</p>
+
+    <div class="meta-strip">
+      <div class="meta-cell">
+        <div class="val">24</div>
+        <div class="lbl">Weeks</div>
+      </div>
+      <div class="meta-cell">
+        <div class="val">Full-Time</div>
+        <div class="lbl">40 Hrs / Week</div>
+      </div>
+      <div class="meta-cell">
+        <div class="val">~960</div>
+        <div class="lbl">Total Hours</div>
+      </div>
+      <div class="meta-cell">
+        <div class="val">NAITA</div>
+        <div class="lbl">SIT Eligible</div>
+      </div>
+      <div class="meta-cell">
+        <div class="val">8–10</div>
+        <div class="lbl">Per Cohort</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU'LL LEARN -->
+<section>
+  <div class="container">
+    <h2>What You'll Learn</h2>
+    <p class="section-sub">The skills that actually get you hired — not what textbooks cover.</p>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h4>Spec-Driven Development</h4>
+        <p>Define what you're building before writing code. PRDs, architecture docs, and user stories that translate directly into working software.</p>
+      </div>
+      <div class="skill-card">
+        <h4>AI-Powered Engineering</h4>
+        <p>Go beyond using AI for debugging. Learn to orchestrate AI agents that build features from your specifications while you focus on design and quality.</p>
+      </div>
+      <div class="skill-card">
+        <h4>Full Stack Development</h4>
+        <p>React, TypeScript, Node.js, PostgreSQL, REST APIs — the production stack companies actually hire for. Not tutorials. Deployed software.</p>
+      </div>
+      <div class="skill-card">
+        <h4>DevOps &amp; Delivery</h4>
+        <p>Git workflows, CI/CD pipelines, Docker, cloud deployment. Ship code the way professional teams do — with automation and confidence.</p>
+      </div>
+      <div class="skill-card">
+        <h4>System Design</h4>
+        <p>Architecture decisions, API design, database modelling, cloud infrastructure. Think in systems, not just features.</p>
+      </div>
+      <div class="skill-card">
+        <h4>Communication</h4>
+        <p>Toastmasters-style presentations, stakeholder demos, code review discussions. The soft skills that separate great engineers from good ones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMME PHASES -->
+<section style="background:var(--off)">
+  <div class="container">
+    <h2>Programme Structure</h2>
+    <p class="section-sub">From your first spec to production deployment. Each phase builds on the last — and every phase produces portfolio-ready work.</p>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-period">Weeks 1–4</div>
+        <div class="tl-title">Foundations &amp; First Ship</div>
+        <div class="tl-desc">Learn spec-driven development by doing it. Write your first production specification, build it with AI-powered tools, deploy it, and present it — all in the first month.</div>
+        <div class="tl-tags">
+          <span class="tl-tag">Spec Writing</span>
+          <span class="tl-tag">AI Toolchain</span>
+          <span class="tl-tag">First Deployment</span>
+          <span class="tl-tag">Demo Day #1</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-period">Weeks 5–8</div>
+        <div class="tl-title">Team Project Sprint</div>
+        <div class="tl-desc">Work in a team on a real internal project. Stakeholder interviews, collaborative architecture, agile sprints, code reviews — the full cycle from problem to deployed solution.</div>
+        <div class="tl-tags">
+          <span class="tl-tag">Team Collaboration</span>
+          <span class="tl-tag">Agile Sprints</span>
+          <span class="tl-tag">Code Reviews</span>
+          <span class="tl-tag">Demo Day #2</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-period">Weeks 9–12</div>
+        <div class="tl-title">Advanced AI &amp; LLM Integration</div>
+        <div class="tl-desc">Build AI-powered features into real products. Context engineering, multi-agent orchestration, and production-grade AI systems — not toy demos.</div>
+        <div class="tl-tags">
+          <span class="tl-tag">Context Engineering</span>
+          <span class="tl-tag">Multi-Agent Systems</span>
+          <span class="tl-tag">Production AI</span>
+          <span class="tl-tag">Demo Day #3</span>
+        </div>
+      </div>
+
+      <div class="tl-item" style="padding:20px;margin-left:-32px;background:var(--navy);border-radius:10px;margin-bottom:32px">
+        <div style="font-size:0.7rem;font-family:monospace;text-transform:uppercase;letter-spacing:0.1em;color:var(--green);margin-bottom:4px">Midpoint Evaluation — Week 12</div>
+        <div style="font-size:0.95rem;color:rgba(255,255,255,0.75)">Performance evaluation on technical output, AI proficiency, collaboration, and consistency. Top performers unlock the Startup Track and fee waivers.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-period">Weeks 13–16</div>
+        <div class="tl-title">Embedded in Development Teams</div>
+        <div class="tl-desc">Join a professional development team. Real tickets, real deadlines, real users. Daily standups, sprint planning, and production deployments — you're a contributing team member.</div>
+        <div class="tl-tags">
+          <span class="tl-tag">Production Code</span>
+          <span class="tl-tag">Cross-Functional Teams</span>
+          <span class="tl-tag">Feature Ownership</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-period">Weeks 17–20</div>
+        <div class="tl-title">Full Stack Ownership</div>
+        <div class="tl-desc">Own a feature or module end-to-end — from writing the spec to monitoring it in production. Infrastructure, security, performance — the full picture.</div>
+        <div class="tl-tags">
+          <span class="tl-tag">Cloud Infrastructure</span>
+          <span class="tl-tag">Security</span>
+          <span class="tl-tag">Monitoring</span>
+          <span class="tl-tag">End-to-End Ownership</span>
+        </div>
+      </div>
+
+      <div class="tl-item green">
+        <div class="tl-dot"></div>
+        <div class="tl-period">Weeks 21–24</div>
+        <div class="tl-title">Capstone: Ship &amp; Present</div>
+        <div class="tl-desc">Polish your portfolio, complete your capstone project, and present your work to company leadership and partner organisations. This is your launchpad.</div>
+        <div class="tl-tags">
+          <span class="tl-tag">Portfolio Curation</span>
+          <span class="tl-tag">Demo Day Final</span>
+          <span class="tl-tag">Placement</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TWO TRACKS -->
+<section>
+  <div class="container">
+    <h2>Two Tracks After Midpoint</h2>
+    <p class="section-sub">Everyone ships production software. Top performers also get tools and mentorship to launch their own ventures.</p>
+
+    <div class="track-row">
+      <div class="track ent">
+        <h4 style="color:var(--blue)">Enterprise Track</h4>
+        <div class="sub">All participants</div>
+        <ul>
+          <li>Embedded in a professional development team</li>
+          <li>Own features from spec to production</li>
+          <li>Work with project managers, tech leads, QA</li>
+          <li>Production code reviews and architecture sessions</li>
+          <li>Placement support and career guidance</li>
+        </ul>
+      </div>
+      <div class="track start">
+        <h4 style="color:var(--green)">Startup Track</h4>
+        <div class="sub">Top performers</div>
+        <ul>
+          <li>Everything in Enterprise Track, plus:</li>
+          <li>AI-powered business automation tools</li>
+          <li>Build and deploy your own product</li>
+          <li>Solo agency and entrepreneurship mentorship</li>
+          <li>Go-to-market strategy and early users</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO TEACHES YOU -->
+<section style="background:var(--off)">
+  <div class="container">
+    <h2>Who You'll Learn From</h2>
+    <p class="section-sub">Not one teacher — an expanding circle of practitioners who build software for a living.</p>
+
+    <div class="mentor-grid">
+      <div class="mentor-card">
+        <div class="icon">&#9997;&#65039;</div>
+        <h4>Programme Lead</h4>
+        <p>Your daily coach. Runs workshops, reviews your specs and code, and supports you throughout the 6 months.</p>
+      </div>
+      <div class="mentor-card">
+        <div class="icon">&#127959;&#65039;</div>
+        <h4>Architects &amp; Senior Engineers</h4>
+        <p>Guest sessions on system design, production patterns, and industry direction. Deep expertise, not textbook theory.</p>
+      </div>
+      <div class="mentor-card">
+        <div class="icon">&#128101;</div>
+        <h4>Project Teams</h4>
+        <p>PMOs, tech leads, QA engineers. Real cross-functional exposure as you work on actual projects alongside them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GRADUATE WITH -->
+<section>
+  <div class="container">
+    <h2>What You Graduate With</h2>
+    <p class="section-sub">A portfolio that proves you can ship — not a certificate that says you attended.</p>
+
+    <div class="skills-grid" style="grid-template-columns:1fr 1fr">
+      <div class="skill-card">
+        <h4>Production Portfolio</h4>
+        <p>3–5 deployed projects on GitHub with full specs, code, and documentation. Proof you can ship real software.</p>
+      </div>
+      <div class="skill-card">
+        <h4>Team Experience</h4>
+        <p>Merged PRs on production codebases. Sprint participation. Code reviews given and received. Real team credentials.</p>
+      </div>
+      <div class="skill-card">
+        <h4>NAITA Certification</h4>
+        <p>~960 hours of verified full-time industrial training. Qualifies as your university internship requirement.</p>
+      </div>
+      <div class="skill-card">
+        <h4>Placement Support</h4>
+        <p>Recommendation from programme lead, architect, and tech leads. Partner company referrals and alumni network access.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="container">
+    <div class="cta-box">
+      <h3>Ready to start?</h3>
+      <p>Applications take under 5 minutes. We review every one individually and respond within a week.</p>
+      <a href="https://forms.office.com/r/kM2prJrNgg" target="_blank" rel="noopener noreferrer" class="cta-btn">
+        Apply Now
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

@@ -3,10 +3,10 @@
   "configurations": [
     {
       "name": "hearts-academy",
-      "runtimeExecutable": "node",
-      "runtimeArgs": ["altrium-careers/node_modules/next/dist/bin/next", "dev"],
-      "port": 3002,
-      "autoPort": false
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 5173,
+      "cwd": "bistec-internship"
     }
   ]
 }
